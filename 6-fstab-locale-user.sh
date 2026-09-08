@@ -10,7 +10,7 @@ set -euo pipefail
 
 host_part() {
     say "genfstab..."
-    run genfstab -U "${MNT}" >> "${MNT}/etc/fstab"
+    run genfstab -U "${MNT}" > "${MNT}/etc/fstab"
     echo "--- ${MNT}/etc/fstab ---"
     cat "${MNT}/etc/fstab"
 
