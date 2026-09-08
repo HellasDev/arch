@@ -37,7 +37,7 @@ say "και στο cmdline: resume=UUID=... και resume_offset=..."
 # --- Έλεγχος μήπως κάτι δεν χάθηκε -------------------------------
 echo
 say "Έλεγχο κρίσιμα στοιχεία..."
-grep -q 'subvol=@swap' ${MNT}/etc/fstab && say "  OK fstab: @swap"   || warn "  ΔΕΝ βρήκα @swap στο fstab"
+grep -q 'subvol=/@swap' ${MNT}/etc/fstab && say "  OK fstab: @swap"   || warn "  ΔΕΝ βρήκα @swap στο fstab"
 ls ${MNT}/swap/swapfile >/dev/null 2>&1 && say "  OK: swapfile υπάρχει" || warn "  ΔΕΝ βρήκα swapfile"
 grep -q 'resume=' ${MNT}/etc/kernel/cmdline && say "  OK cmdline: resume=" || warn "  ΔΕΝ βρήκα resume= στο cmdline"
 grep -q 'resume_offset=' ${MNT}/etc/kernel/cmdline && say "  OK cmdline: resume_offset=" || warn "  ΔΕΝ βρήκα resume_offset="
