@@ -42,20 +42,31 @@ enable_wheel_nopasswd() {
 
 # --- Αυτόματη εκκίνηση μέσα σε arch-chroot ------------------
 # rinchroot <path-to-script>
-# Αν δεν είμαστε σε chroot, αντιγράφει το script στο $MNT/tmp,
+# Αν δεν είμαστε σε chroot, αντιγράφει το script στο $MNT,
 # το τρέχει μέσα σε arch-chroot και επιστρέφει στο host.
 rinchroot() {
     local script="$1"
+    local name="$(basename "$script")"
+    local src_dir="$(dirname "$script")"
+    local dst="$MNT/root/.arch-install-scripts"
+
     if ! is_chroot; then
         mount_ok || fail "Το $MNT δεν είναι montarismeno."
+
         say "Χρειάζεται arch-chroot. Μπαίνω μόνος μου στο $MNT..."
-        mkdir -p "$MNT/tmp"
-        cp "$script" "$MNT/tmp/$(basename "$script")"
-        chmod +x "$MNT/tmp/$(basename "$script")"
-        run arch-chroot "$MNT" "/tmp/$(basename "$script")"
-        rm -f "$MNT/tmp/$(basename "$script")"
+
+        mkdir -p "$dst"
+
+        cp "$script" "$dst/$name"
+        cp "$src_dir/_common.sh" "$dst/_common.sh"
+
+        chmod +x "$dst/$name"
+
+        run arch-chroot "$MNT" "/root/.arch-install-scripts/$name"
+
+        rm -rf "$dst"
+
         say "Επέστρεψα στο host."
         exit 0
     fi
-    rm -f "/tmp/$(basename "$script")" 2>/dev/null || true
 }
