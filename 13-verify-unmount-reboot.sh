@@ -44,6 +44,9 @@ grep -q 'resume_offset=' ${MNT}/etc/kernel/cmdline && say "  OK cmdline: resume_
 
 # --- Αποσύνδεση + κλείσιμο ------------------------------------------
 echo
+say "Απενεργοποίηση swap..."
+run swapoff "${MNT}/swap/swapfile"
+
 say "Αποσύνδεση ${MNT} (umount)..."
 run umount -R ${MNT}
 
