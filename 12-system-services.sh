@@ -50,6 +50,6 @@ run systemctl --root ${MNT} mask systemd-networkd
 
 # --- 5. Bootctl install --------------------------------------------
 say "bootctl install --esp-path=/efi..."
-run arch-chroot ${MNT} bootctl install --esp-path=/efi
+run arch-chroot -S ${MNT} bootctl install --esp-path=/efi
 
 say "ΤΕΛΟΣ #12 — services και bootctl έτοιμα."
