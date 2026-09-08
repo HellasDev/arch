@@ -69,12 +69,9 @@ else
 
     # Live: μπαίνω μόνος μου στο chroot για το chroot τμήμα.
     say "Μπαίνω στο chroot για το τμήμα chroot..."
-    mkdir -p "${MNT}/tmp"
-    cp "$0" "${MNT}/tmp/$(basename "$0")"
-    chmod +x "${MNT}/tmp/$(basename "$0")"
-    run arch-chroot "${MNT}" "/tmp/$(basename "$0")"
-    rm -f "${MNT}/tmp/$(basename "$0")"
-    say "Επέστρεψα στο host."
+
+    rinchroot "$0"
+
 fi
 
 say "ΤΕΛΟΣ #6 — fstab, locale, hosts και χρήστης έτοιμο."
